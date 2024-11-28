@@ -9,24 +9,19 @@ import gsap from 'gsap';
 
 import { ScrollTrigger } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Hero = () => {
     const [currentIndex, setCurrentIndex] = useState(1);
     const [hasClicked, setHasClicked] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isLoading, setIsLoading] = useState(true)
     const [loadedVideos, setloadedVideos] = useState(0)
 
-    const totalVideos = 3
+    const totalVideos = 4
 
     const nextVdRef = useRef<HTMLVideoElement | null>(null)
 
     const handleVdLoad = () => {
-        console.log("Video loaded"); // Add this log to check if it's being called
-        setloadedVideos((prev) => {
-            console.log("Loaded videos: ", prev + 1);
-            return prev + 1;
-        });
+        setloadedVideos((prev) => prev + 1)
     }
     const upcomingVideoIndex = (currentIndex % totalVideos) + 1
 
@@ -72,33 +67,33 @@ const Hero = () => {
     }, { dependencies: [currentIndex], revertOnUpdate: true });
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-          gsap.set('#video-frame', {
-            clipPath: 'polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)',
-            borderRadius: '0 0 40% 10%',
-          });
-      
-          gsap.from('#video-frame', {
-            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-            borderRadius: '0 0 0 0',
-            ease: 'power1.inOut',
-            scrollTrigger: {
-              trigger: '#video-frame',
-              start: 'center center',
-              end: 'bottom center',
-              scrub: true,
-            },
-          });
-        }
-      }, []);
-      
+    if (typeof window !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
 
+      gsap.set("#video-frame", {
+        clipPath: "polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)",
+        borderRadius: "0 0 40% 10%",
+      });
+
+      gsap.from("#video-frame", {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        borderRadius: "0 0 0 0",
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: "#video-frame",
+          start: "center center",
+          end: "bottom center",
+          scrub: true,
+        },
+      });
+    }
+  }, []);
     const getVideoSource = (index: number) => `videos/hero-${index}.mp4`
 
   return (
     <div className='relative h-dvh w-screen overflow-x-hidden'>
 
-        {isLoading && (
+        {/* {isLoading && (
             <div className='flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50'>
                 <div className='three-body'>
                     <div className='three-body__dot'></div>
@@ -106,7 +101,7 @@ const Hero = () => {
                     <div className='three-body__dot'></div>
                 </div>
             </div>
-        )}
+        )} */}
         <div id="video-frame" className='relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75'>
             <div>
                 <div className='mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg'>
