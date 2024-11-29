@@ -44,11 +44,11 @@ const BentoTilt = ({ children, className = '' }: TiltProps) => {
     const tiltY = (relativeX - 0.5) * -5;
 
     const newTransform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(0.95, 0.95, 0.95)`;
-    setTransformStyle(newTransform); // Set only once
+    setTransformStyle(newTransform);
   };
 
   const handleMouseLeave = () => {
-    setTransformStyle(''); // Reset transform when mouse leaves
+    setTransformStyle('');
   };
 
   return (
@@ -56,7 +56,7 @@ const BentoTilt = ({ children, className = '' }: TiltProps) => {
       className={className}
       style={{
         transform: transformStyle,
-        transition: 'transform 0.2s ease-out', // Add smooth transition effect
+        transition: 'transform 0.2s ease-out',
       }}
       ref={itemRef}
       onMouseMove={handleMouseMove}
